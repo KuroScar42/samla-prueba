@@ -1,0 +1,57 @@
+.registerContainer {
+  max-height: 100vh;
+  height: 100vh;
+  display: flex;
+}
+
+.registerLeft {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI5NzgiIHZpZXdCb3g9IjAgMCAxNDQwIDk3OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjg5LjUgOTc4QzEyOS41IDk3OCAwIDg0OC41IDAgNjg4LjVDMCA1MjguNSAxMjkuNSAzOTkgMjg5LjUgMzk5QzQ0OS41IDM5OSA1NzkgNTI4LjUgNTc5IDY4OC41QzU3OSA4NDguNSA0NDkuNSA5NzggMjg5LjUgOTc4WiIgZmlsbD0idXJsKCNwYWludDBfbGluZWFyXykiLz48cGF0aCBkPSJNMTE1MC41IDBDOTkwLjUgMCA4NjEgMTI5LjUgODYxIDI4OS41Qzg2MSA0NDkuNSA5OTAuNSA1NzkgMTE1MC41IDU3OUMxMzEwLjUgNTc5IDE0NDAgNDQ5LjUgMTQ0MCAyODkuNUMxNDQwIDEyOS41IDEzMTAuNSAwIDExNTAuNSAwWiIgZmlsbD0idXJsKCNwYWludDFfbGluZWFyXykiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MF9saW5lYXJfIiB4MT0iMjg5LjUiIHkxPSIzOTkiIHgyPSIyODkuNSIgeTI9Ijk3OCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiMwMDUyRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAwNTJGRiIgc3RvcC1vcGFjaXR5PSIwLjEiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQxX2xpbmVhcl8iIHgxPSIxMTUwLjUiIHkxPSIwIiB4Mj0iMTE1MC41IiB5Mj0iNTc5IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agc3RvcC1jb2xvcj0iIzAwNTJGRiIgc3RvcC1vcGFjaXR5PSIwLjEiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwMDUyRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg==");
+  background-repeat: "no-repeat";
+  background-size: "cover";
+  opacity: 0.5;
+}
+
+.bg-primary {
+}
+
+.team-collab {
+  .image {
+    height: 740px;
+    width: 559px;
+    object-fit: cover;
+  }
+}
+
+.registerBackground {
+  background: linear-gradient(217.64deg, #006dff -5.84%, #5038ed 106.73%);
+  width: 50%;
+  > .registerBackgroundImage {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    opacity: 0.5;
+    background-image: url("https://s3-alpha-sig.figma.com/img/a57f/b6f5/d09df55185bc4fee2167b90f10d18288?Expires=1739145600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=FGQ8ciQ2q8Kza2~sre-OtLOV9xkae2-gVNQqDosAqncojulihK037nbRG-nNvY55jceOPOzKYzGWT2TwXxPsEeyqYaN0wh~uq0vUeMxvzHmgtbzo-ITCvPOuJ87s9xEqXapHh9CidZ5kzjRsyZqhf3f0Oc9RwLqHfp2evUKlIwSPA9lwAOe0Y7BrxOqXjAhLGDfIhhabWnK9llh7UNIa8EkacCotP4MIX6Mqdh9BfUxsRFfRf29HtME2rvXko3KFX8Ia18tyPrr7Ui4yAx61ilV3TRagIFN05~bFk5K1Hp5Vn9HTC8BKA~huVLqSflRJn9x0vK528gynqecma4fuVg__");
+  }
+}
+
+.main-container {
+  margin-right: 3rem;
+  margin-left: 3rem;
+
+  .form-label {
+    margin-bottom: 0;
+  }
+}
+
+.danger-text {
+  color: #b32318;
+}
+
+.errorMessage {
+  color: #b32318;
+  font-size: 14px;
+  margin-left: 16px;
+}
