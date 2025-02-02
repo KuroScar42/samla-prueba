@@ -5,12 +5,13 @@ interface SelectInputProps {
   name: string;
   options: { value: string; label: string }[];
   onChange?: (value: string) => void;
+  placeholder?: string;
   errors?: any;
   register: any;
 }
 
 const SelectInput = (props: SelectInputProps) => {
-  const { register, errors, name, label, options } = props;
+  const { register, errors, name, label, options, placeholder } = props;
 
   const hasError: boolean = errors?.[name];
 
@@ -27,7 +28,7 @@ const SelectInput = (props: SelectInputProps) => {
         className={`form-control ${hasError ? "border-danger" : ""}`}
         id={name}
       >
-        <option value="">Seleccione una opcion</option>
+        <option value="">{placeholder ?? "Seleccione una opcion"}</option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

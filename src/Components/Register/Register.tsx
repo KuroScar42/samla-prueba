@@ -5,47 +5,8 @@ import PhoneSelect from "Components/Common/PhoneSelect";
 import TextInput from "Components/Common/TextInput";
 import "./Register.scss";
 import SelectInput from "Components/Common/SelectInput";
-
-type Inputs = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneCountryCode: string;
-  telephone: string;
-  idType: string;
-  idNumber: string;
-};
-
-const useYupValidationResolver = (validationSchema: any) =>
-  useCallback(
-    async (data: any) => {
-      try {
-        const values = await validationSchema.validate(data, {
-          abortEarly: false,
-        });
-
-        return {
-          values,
-          errors: {},
-        };
-      } catch (errors: any) {
-        return {
-          values: {},
-          errors: errors?.inner?.reduce(
-            (allErrors: any, currentError: any) => ({
-              ...allErrors,
-              [currentError.path]: {
-                type: currentError.type ?? "validation",
-                message: currentError.message,
-              },
-            }),
-            {}
-          ),
-        };
-      }
-    },
-    [validationSchema]
-  );
+import { RegisterInputs } from "Utils/Types";
+import { useYupValidationResolver } from "Utils";
 
 const validationSchema = yup.object({
   firstName: yup.string().required("Nombres es requerido"),
@@ -65,16 +26,17 @@ const RegistrationForm = () => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<Inputs>({ resolver });
+  } = useForm<RegisterInputs>({ resolver });
 
-  const onSubmit: SubmitHandler<Inputs> = (data: any) => console.log(data);
+  const onSubmit: SubmitHandler<RegisterInputs> = (data: any) =>
+    console.log(data);
 
   return (
-    <div className="registerContainer">
+    <div className="main-container">
       {/* Left section with image */}
-      <div className="registerBackground">
-        <div className="registerBackgroundImage"></div>
-        <div className="registerLeft" />
+      <div className="register-background">
+        <div className="register-backgroundImage"></div>
+        <div className="register-left" />
         <div className="position-relative p-4 d-flex align-items-center justify-content-center h-100">
           <div className="rounded-4 overflow-hidden position-relative team-collab">
             <img
@@ -88,7 +50,7 @@ const RegistrationForm = () => {
 
       {/* Right section with form */}
       <div className="d-flex flex-column p-4 justify-content-center w-50 w-md-50">
-        <div className="main-container">
+        <div className="side-container">
           <div className="mb-4">
             <h1 className="fs-2 fw-bold mb-1">
               Sam<span className="text-primary">la</span>

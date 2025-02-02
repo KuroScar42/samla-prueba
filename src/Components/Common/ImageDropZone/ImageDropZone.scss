@@ -1,0 +1,35 @@
+.drop-down-zone {
+  // border: 1px #1849d6 dashed;
+  border-radius: 8px;
+  min-height: 354px;
+  max-width: 548px;
+  width: 548px;
+  border: 1px dashed transparent;
+  border-image: repeating-linear-gradient(
+      142deg,
+      #1849d6,
+      #1849d6 5px,
+      transparent 5px,
+      transparent 10px
+    )
+    8;
+  -webkit-mask-image: linear-gradient(
+    white,
+    white
+  ); /* Ensures border respects border-radius */
+  mask-image: linear-gradient(white, white);
+  .file-drop-thumbnail {
+    color: #1849d6;
+    font-size: 4em;
+    line-height: 1em;
+  }
+  .btn {
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .preview-container {
+    display: flex;
+    flex-direction: column;
+  }
+}

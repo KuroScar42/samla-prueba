@@ -1,10 +1,4 @@
-.registerContainer {
-  max-height: 100vh;
-  height: 100vh;
-  display: flex;
-}
-
-.registerLeft {
+.register-left {
   position: absolute;
   width: 50%;
   height: 100%;
@@ -12,9 +6,6 @@
   background-repeat: "no-repeat";
   background-size: "cover";
   opacity: 0.5;
-}
-
-.bg-primary {
 }
 
 .team-collab {
@@ -25,19 +16,19 @@
   }
 }
 
-.registerBackground {
+.register-background {
   background: linear-gradient(217.64deg, #006dff -5.84%, #5038ed 106.73%);
   width: 50%;
-  > .registerBackgroundImage {
+  > .register-backgroundImage {
     width: 50%;
     height: 100%;
     position: absolute;
-    opacity: 0.5;
+    opacity: 0.1;
     background-image: url("https://s3-alpha-sig.figma.com/img/a57f/b6f5/d09df55185bc4fee2167b90f10d18288?Expires=1739145600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=FGQ8ciQ2q8Kza2~sre-OtLOV9xkae2-gVNQqDosAqncojulihK037nbRG-nNvY55jceOPOzKYzGWT2TwXxPsEeyqYaN0wh~uq0vUeMxvzHmgtbzo-ITCvPOuJ87s9xEqXapHh9CidZ5kzjRsyZqhf3f0Oc9RwLqHfp2evUKlIwSPA9lwAOe0Y7BrxOqXjAhLGDfIhhabWnK9llh7UNIa8EkacCotP4MIX6Mqdh9BfUxsRFfRf29HtME2rvXko3KFX8Ia18tyPrr7Ui4yAx61ilV3TRagIFN05~bFk5K1Hp5Vn9HTC8BKA~huVLqSflRJn9x0vK528gynqecma4fuVg__");
   }
 }
 
-.main-container {
+.side-container {
   margin-right: 3rem;
   margin-left: 3rem;
 
@@ -48,10 +39,4 @@
 
 .danger-text {
   color: #b32318;
-}
-
-.errorMessage {
-  color: #b32318;
-  font-size: 14px;
-  margin-left: 16px;
 }
