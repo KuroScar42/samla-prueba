@@ -33,3 +33,13 @@
     flex-direction: column;
   }
 }
+
+.drop-zone-separator {
+  display: flex;
+  align-items: center;
+  hr {
+    border-color: #636060;
+    width: 85px;
+    margin: 0 14px;
+  }
+}

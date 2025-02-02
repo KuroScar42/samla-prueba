@@ -1,0 +1,61 @@
+.selfie-container {
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  h1 {
+    margin-bottom: 40px !important;
+  }
+  svg {
+    margin-bottom: 40px !important;
+  }
+  .selfie-time {
+    font-weight: 500;
+    font-size: 24px;
+  }
+  .selfie-smile {
+    font-weight: 400;
+    font-size: 16px;
+  }
+  .btn-primary,
+  .btn-secondary {
+    min-width: 160px;
+    border-radius: 4px;
+  }
+
+  .captured-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .captured-image {
+    width: 400px; /* Adjust as needed */
+    height: 400px; /* Ensure width and height are equal */
+    border-radius: 50%; /* Makes it a perfect circle */
+    object-fit: cover; /* Ensures the image fills the circular area */
+    border: 5px solid white; /* Optional: Adds a white border for styling */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional: Adds a soft shadow */
+  }
+  .image-buttons-container {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.modal-body {
+  .selfie-camera {
+    width: 400px; /* Adjust as needed */
+    height: 400px; /* Ensure width and height are equal */
+    border-radius: 50%; /* Makes it a perfect circle */
+    object-fit: cover; /* Ensures the image fills the circular area */
+    border: 5px solid white; /* Optional: Adds a white border for styling */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional: Adds a soft shadow */
+  }
+}

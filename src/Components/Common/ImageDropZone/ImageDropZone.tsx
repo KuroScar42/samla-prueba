@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./ImageDropZone.scss";
+import { imagesIcon } from "Utils/Icons";
 
 interface IImageDropZone {
   setFile: (file: File | null) => void;
@@ -66,9 +67,11 @@ const ImageDropZone = (props: IImageDropZone) => {
             </div>
           ) : (
             <>
-              <i className="fa-solid fa-images fa-xl file-drop-thumbnail"></i>
+              {imagesIcon}
               <p className="text-center mb-2">Arrastrar aquí</p>
-              <p className="text-center"> ---------- o ----------</p>
+              <p className="text-center drop-zone-separator">
+                <hr /> o <hr />
+              </p>
               <label className="btn btn-secondary">
                 Seleccionar archivo
                 <input

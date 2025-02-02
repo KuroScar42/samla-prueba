@@ -1,34 +1,50 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TextInput from "Components/Common/TextInput";
-import "./AdditionalData.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AdditionalDataInputs } from "Utils/Types";
+import { AdditionalDataInputs } from "./../../Utils/Types";
 import { useYupValidationResolver } from "Utils";
 import * as yup from "yup";
-import SelectInput from "Components/Common/SelectInput";
-import ImageDropZone from "Components/Common/ImageDropZone";
-import DecorativeHeader from "Components/Common/DecorativeHeader";
+import SelectInput from "../../Components/Common/SelectInput";
+import ImageDropZone from "../../Components/Common/ImageDropZone";
+import DecorativeHeader from "../../Components/Common/DecorativeHeader";
+import { samlaIcon } from "./../../Utils/Icons";
+import { useNavigate } from "react-router-dom";
+import "./AdditionalData.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { setAdditionalField } from "./../../Redux/slice/formData";
 
 const validationSchema = yup.object({
   department: yup.string().required("Nombres es requerido"),
   municipality: yup.string().required("Required"),
   direction: yup.string().required("Required"),
   monthlyEarns: yup.string().required("Required"),
+  photo: yup.mixed().required("required"),
 });
 
 const AdditionalData = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const resolver = useYupValidationResolver(validationSchema);
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<AdditionalDataInputs>({ resolver });
 
   const [file, setFile] = useState<File | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  const onSubmit: SubmitHandler<AdditionalDataInputs> = (data: any) =>
+  const onSubmit: SubmitHandler<AdditionalDataInputs> = (data: any) => {
     console.log(data);
+    if (watch("photo") && data) {
+      dispatch(setAdditionalField(data));
+      navigate("/selfie");
+    }
+  };
+
+  const registerInfo = useSelector((state: any) => state.form.registerInfo);
 
   const triggerSubmit = () => {
     if (formRef.current) {
@@ -38,6 +54,12 @@ const AdditionalData = () => {
     }
   };
 
+  useEffect(() => {
+    if (!registerInfo) {
+      navigate("/register");
+    }
+  }, [registerInfo, navigate]);
+
   return (
     <div className="main-container" style={{ flexDirection: "column" }}>
       <DecorativeHeader />
@@ -45,9 +67,7 @@ const AdditionalData = () => {
         <div className="home-data">
           <div className="side-container">
             <div className="mb-4">
-              <h1 className="fs-2 fw-bold mb-1">
-                Sam<span className="text-primary">la</span>
-              </h1>
+              {samlaIcon}
               <h2 className="fs-3 fw-semibold">Datos de vivienda</h2>
             </div>
 
@@ -105,7 +125,11 @@ const AdditionalData = () => {
         </div>
         <div className="d-flex flex-column justify-content-center w-50 w-md-50 drop-zone-wrapper">
           <ImageDropZone
-            setFile={setFile}
+            setFile={(image: File | null) => {
+              setFile(image);
+              debugger;
+              setValue("photo", image);
+            }}
             file={file}
             label="Fotografía de documento de identidad"
           />

@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import PhoneSelect from "Components/Common/PhoneSelect";
@@ -7,6 +6,10 @@ import "./Register.scss";
 import SelectInput from "Components/Common/SelectInput";
 import { RegisterInputs } from "Utils/Types";
 import { useYupValidationResolver } from "Utils";
+import { samlaIcon } from "Utils/Icons";
+import { useDispatch, useSelector } from "react-redux";
+import { setRegisterInfo } from "../../Redux/slice/formData";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   firstName: yup.string().required("Nombres es requerido"),
@@ -19,6 +22,7 @@ const validationSchema = yup.object({
 });
 
 const RegistrationForm = () => {
+  const navigate = useNavigate();
   const resolver = useYupValidationResolver(validationSchema);
   const {
     register,
@@ -28,8 +32,13 @@ const RegistrationForm = () => {
     watch,
   } = useForm<RegisterInputs>({ resolver });
 
-  const onSubmit: SubmitHandler<RegisterInputs> = (data: any) =>
-    console.log(data);
+  const dispatch = useDispatch();
+  const registerInfo = useSelector((state: any) => state.form.registerInfo);
+
+  const onSubmit: SubmitHandler<RegisterInputs> = (data: any) => {
+    dispatch(setRegisterInfo(data));
+    navigate("/additionalData");
+  };
 
   return (
     <div className="main-container">
@@ -52,9 +61,7 @@ const RegistrationForm = () => {
       <div className="d-flex flex-column p-4 justify-content-center w-50 w-md-50">
         <div className="side-container">
           <div className="mb-4">
-            <h1 className="fs-2 fw-bold mb-1">
-              Sam<span className="text-primary">la</span>
-            </h1>
+            {samlaIcon}
             <h2 className="fs-3 fw-semibold">Registro</h2>
           </div>
 
