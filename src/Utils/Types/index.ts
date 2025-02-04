@@ -13,5 +13,5 @@ export type AdditionalDataInputs = {
   municipality: string;
   direction: string;
   monthlyEarns: string;
-  photo: File | null;
+  photos: Array<File>;
 };

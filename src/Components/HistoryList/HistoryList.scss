@@ -1,0 +1,58 @@
+@import "./../../variables.scss";
+
+.history-header {
+  height: 83px;
+  .decorative-background-image {
+    max-height: 83px;
+  }
+}
+
+.main-container {
+  .logo-container {
+    padding-left: 60px;
+    padding-top: 30px;
+  }
+}
+
+.modal-info {
+  max-width: 80%;
+  .selfie-container {
+    display: flex;
+    justify-content: center;
+    height: 288px;
+    width: 214px;
+  }
+  .info-container {
+    .user-full-name {
+      margin: 0;
+      display: flex;
+      padding-bottom: 24px;
+      font-weight: 500;
+      font-size: 20px;
+    }
+    .row {
+      .info-column {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        .info-row {
+          justify-content: center;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    }
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.history-list-container {
+  background-color: green;
+  @include media-breakpoint-down(md) {
+    background-color: red;
+  }
+}

@@ -3,67 +3,85 @@ import "./ImageDropZone.scss";
 import { imagesIcon } from "Utils/Icons";
 
 interface IImageDropZone {
-  setFile: (file: File | null) => void;
-  file: File | null;
+  setFiles: (files: Array<File>) => void;
+  files: Array<File>;
   label?: string;
+  maxFiles?: number;
 }
 
 const ImageDropZone = (props: IImageDropZone) => {
-  const { setFile, file, label } = props;
+  const { setFiles, files, label, maxFiles = 1 } = props;
 
   const [isError, setIsError] = useState(false);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [previews, setPreviews] = useState<string[]>([]);
 
   const validateFile = (file: File) => {
-    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    const allowedTypes = ["image/jpeg", "image/png"];
     return allowedTypes.includes(file.type);
   };
 
   useEffect(() => {
-    if (file) {
-      const objectUrl = URL.createObjectURL(file);
-      setPreview(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
-    } else {
-      setPreview(null);
-    }
-  }, [file]);
+    if (files.length > 0) {
+      const objectUrls = files.map((file) => URL.createObjectURL(file));
+      setPreviews(objectUrls);
 
-  const handleFileChange = (selectedFile: File | null) => {
-    if (selectedFile && validateFile(selectedFile)) {
-      setFile(selectedFile);
-      setIsError(false);
+      return () => {
+        objectUrls.forEach((url) => URL.revokeObjectURL(url));
+      };
     } else {
-      setIsError(true);
+      setPreviews([]);
     }
+  }, [files]);
+
+  const handleFileChange = (selectedFiles: FileList | null) => {
+    if (selectedFiles) {
+      const validFiles = Array.from(selectedFiles).filter(validateFile);
+
+      if (validFiles.length + files.length > maxFiles) {
+        setIsError(true);
+        return;
+      }
+
+      setFiles([...files, ...validFiles]);
+      setIsError(false);
+    }
+  };
+
+  const removeFile = (index: number) => {
+    const updatedFiles = files.filter((_, i) => i !== index);
+    setFiles(updatedFiles);
   };
 
   return (
     <div className="col-md-12 drop-zone">
       <div>
-        <h5 className="mb-4">{label ?? "Seleccione un archivo"}</h5>
+        <h5 className="mb-4">{label ?? "Seleccione archivos"}</h5>
         <div
           className="drop-down-zone d-flex flex-column align-items-center justify-content-center p-5"
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => {
             e.preventDefault();
-            handleFileChange(e.dataTransfer.files[0]);
+            handleFileChange(e.dataTransfer.files);
           }}
         >
-          {preview ? (
-            <div className="text-center preview-container">
-              <img
-                src={preview}
-                alt="Preview"
-                className="img-fluid mb-2"
-                style={{ maxHeight: "200px", objectFit: "cover" }}
-              />
-              <button
-                className="btn btn-link text-danger"
-                onClick={() => setFile(null)}
-              >
-                Remover archivo seleccionado
-              </button>
+          {previews.length > 0 ? (
+            <div className="preview-container">
+              {previews.map((preview, index) => (
+                <div key={index} className="text-center mb-3">
+                  <img
+                    src={preview}
+                    alt="Preview"
+                    className="img-fluid mb-2 image-preview"
+                    style={{ maxHeight: "200px", objectFit: "cover" }}
+                  />
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => removeFile(index)}
+                  >
+                    Remover
+                  </button>
+                </div>
+              ))}
             </div>
           ) : (
             <>
@@ -73,14 +91,13 @@ const ImageDropZone = (props: IImageDropZone) => {
                 <hr /> o <hr />
               </p>
               <label className="btn btn-secondary">
-                Seleccionar archivo
+                Seleccionar archivos
                 <input
                   type="file"
                   accept="image/jpeg, image/png, image/gif, image/webp"
+                  multiple
                   hidden
-                  onChange={(e) =>
-                    handleFileChange(e.target.files?.[0] || null)
-                  }
+                  onChange={(e) => handleFileChange(e.target.files)}
                 />
               </label>
             </>
@@ -88,9 +105,9 @@ const ImageDropZone = (props: IImageDropZone) => {
         </div>
         {isError && (
           <p className="errorMessage">
-            {
-              "Por favor, sube un archivo de imagen válido (JPG, PNG, GIF, WEBP)."
-            }
+            {`Por favor, sube un archivo de imagen válido (JPG, PNG, GIF, WEBP) y no excedas el límite de ${maxFiles} imágen${
+              maxFiles > 1 ? "es" : ""
+            }.`}
           </p>
         )}
       </div>

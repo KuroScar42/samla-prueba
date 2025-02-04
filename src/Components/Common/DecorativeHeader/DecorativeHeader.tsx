@@ -1,9 +1,16 @@
 import "./DecorativeHeader.scss";
 
-const DecorativeHeader = () => {
+interface IDecorativeHeader {
+  content?: any;
+  className?: string;
+}
+
+const DecorativeHeader = (props: IDecorativeHeader) => {
+  const { content, className } = props;
   return (
-    <div className="decorative-background">
+    <div className={`decorative-background ${className ?? ""}`}>
       <div className="decorative-background-image"></div>
+      {content}
     </div>
   );
 };

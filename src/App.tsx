@@ -10,6 +10,7 @@ import NotFound from "Components/NotFound";
 import Register from "Components/Register";
 import AdditionalData from "Components/AdditionalData";
 import Selfie from "Components/Selfie";
+import HistoryList from "Components/HistoryList";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/additionalData" element={<AdditionalData />} />
         <Route path="/selfie" element={<Selfie />} />
-        <Route path="/history" element={<div>History</div>} />
+        <Route path="/history" element={<HistoryList />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

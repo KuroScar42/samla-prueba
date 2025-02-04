@@ -18,8 +18,10 @@ const validationSchema = yup.object({
   municipality: yup.string().required("Required"),
   direction: yup.string().required("Required"),
   monthlyEarns: yup.string().required("Required"),
-  photo: yup.mixed().required("required"),
+  photos: yup.mixed().required("required"),
 });
+
+const maxNumFiles = 2;
 
 const AdditionalData = () => {
   const navigate = useNavigate();
@@ -33,12 +35,13 @@ const AdditionalData = () => {
     formState: { errors },
   } = useForm<AdditionalDataInputs>({ resolver });
 
-  const [file, setFile] = useState<File | null>(null);
+  const [files, setFiles] = useState<Array<File>>([]);
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const onSubmit: SubmitHandler<AdditionalDataInputs> = (data: any) => {
     console.log(data);
-    if (watch("photo") && data) {
+    if (files.length === maxNumFiles && watch("photos") && data) {
+      debugger;
       dispatch(setAdditionalField(data));
       navigate("/selfie");
     }
@@ -125,13 +128,13 @@ const AdditionalData = () => {
         </div>
         <div className="d-flex flex-column justify-content-center w-50 w-md-50 drop-zone-wrapper">
           <ImageDropZone
-            setFile={(image: File | null) => {
-              setFile(image);
-              debugger;
-              setValue("photo", image);
+            setFiles={(images: Array<File>) => {
+              setFiles(images);
+              setValue("photos", images);
             }}
-            file={file}
+            files={files}
             label="Fotografía de documento de identidad"
+            maxFiles={maxNumFiles}
           />
         </div>
       </div>
