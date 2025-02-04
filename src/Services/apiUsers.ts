@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const baseUrl = "https://api-rfbgmdbvlq-uc.a.run.app/";
-// const baseUrl = "http://localhost:3131/";
+// const baseUrl = "https://api-rfbgmdbvlq-uc.a.run.app/";
+const baseUrl = process.env.REACT_APP_API_URL;
 
 export interface IUser {
   id: string;
@@ -24,6 +24,15 @@ export const apiUsers = createApi({
   reducerPath: "apiUsers",
   baseQuery: fetchBaseQuery({
     baseUrl,
+    prepareHeaders: (headers) => {
+      const token = process.env.REACT_APP_JWT_TOKEN;
+
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     getAllUsers: builder.query<IUser[], void>({

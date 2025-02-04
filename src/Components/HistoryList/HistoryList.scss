@@ -17,10 +17,13 @@
 .modal-info {
   max-width: 80%;
   @include media-breakpoint-down(lg) {
-    max-width: 100%;
+    max-width: 90% !important;
+  }
+  @include media-breakpoint-down(md) {
+    max-width: 100% !important;
   }
   @include media-breakpoint-up(lg) {
-    max-width: 792px;
+    max-width: 792px !important;
   }
   .selfie-container {
     display: flex;

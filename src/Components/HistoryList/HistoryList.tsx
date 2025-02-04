@@ -4,11 +4,14 @@ import { IUser, useGetAllUsersQuery } from "../../Services/apiUsers";
 import { samlaIconWhite } from "../../Utils/Icons";
 import "./HistoryList.scss";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
+import ReactPaginate from "react-paginate";
+import Pagination from "Components/Common/Pagination";
 
 const HistoryList = () => {
   const { data: users } = useGetAllUsersQuery();
   const [modalOpen, setModalOpen] = useState(false);
   const [userSelected, setUserSelected] = useState<IUser | null>(null);
+  const [currentItems, setCurrentItems] = useState<Array<IUser>>([]);
 
   const toggleModal = () => setModalOpen(!modalOpen);
 
@@ -35,7 +38,7 @@ const HistoryList = () => {
               </tr>
             </thead>
             <tbody>
-              {(users ?? []).map((user, index) => {
+              {(currentItems ?? []).map((user, index) => {
                 const fullName = `${user.firstName} ${user.lastName}`;
                 return (
                   <tr key={index}>
@@ -44,7 +47,7 @@ const HistoryList = () => {
                     <td>{user.telephone}</td>
                     <td>
                       <a
-                        className="text-primary text-decoration-none cursor-pointer"
+                        className="text-primary cursor-pointer"
                         onClick={() => {
                           console.log(user);
                           setUserSelected(user);
@@ -60,6 +63,11 @@ const HistoryList = () => {
             </tbody>
           </table>
         </div>
+        <Pagination
+          items={users ?? []}
+          itemsPerPage={10}
+          setCurrentItems={setCurrentItems}
+        />
         <Modal
           isOpen={modalOpen}
           toggle={toggleModal}
