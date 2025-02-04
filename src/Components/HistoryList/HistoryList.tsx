@@ -6,7 +6,7 @@ import "./HistoryList.scss";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 
 const HistoryList = () => {
-  const { data: users, error, isLoading } = useGetAllUsersQuery();
+  const { data: users } = useGetAllUsersQuery();
   const [modalOpen, setModalOpen] = useState(false);
   const [userSelected, setUserSelected] = useState<IUser | null>(null);
 

@@ -7,7 +7,7 @@ import SelectInput from "Components/Common/SelectInput";
 import { RegisterInputs } from "Utils/Types";
 import { useYupValidationResolver } from "Utils";
 import { samlaIcon } from "Utils/Icons";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setRegisterInfo } from "../../Redux/slice/formData";
 import { useNavigate } from "react-router-dom";
 
@@ -33,7 +33,6 @@ const RegistrationForm = () => {
   } = useForm<RegisterInputs>({ resolver });
 
   const dispatch = useDispatch();
-  const registerInfo = useSelector((state: any) => state.form.registerInfo);
 
   const onSubmit: SubmitHandler<RegisterInputs> = (data: any) => {
     dispatch(setRegisterInfo(data));

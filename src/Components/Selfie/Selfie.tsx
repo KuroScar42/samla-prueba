@@ -109,7 +109,7 @@ const Selfie = () => {
     if (!registerInfo || !additionalData) {
       navigate("/register");
     }
-  }, [registerInfo, navigate]);
+  }, [registerInfo, additionalData, navigate]);
 
   return (
     <div className="main-container selfie-container">
