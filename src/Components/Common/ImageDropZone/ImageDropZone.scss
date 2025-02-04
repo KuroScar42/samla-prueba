@@ -1,4 +1,9 @@
+@import "./../../../variables.scss";
+
 .drop-down-zone {
+  @include media-breakpoint-down(lg) {
+    width: 300px;
+  }
   // border: 1px #1849d6 dashed;
   border-radius: 8px;
   min-height: 354px;
@@ -45,4 +50,13 @@
     width: 85px;
     margin: 0 14px;
   }
+}
+
+.drop-zone-label {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.drop-zone-wrapper {
+  margin: 0;
 }

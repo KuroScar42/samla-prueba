@@ -55,7 +55,7 @@ const ImageDropZone = (props: IImageDropZone) => {
   return (
     <div className="col-md-12 drop-zone">
       <div>
-        <h5 className="mb-4">{label ?? "Seleccione archivos"}</h5>
+        <p className="mb-4 drop-zone-label">{label ?? "Seleccione archivos"}</p>
         <div
           className="drop-down-zone d-flex flex-column align-items-center justify-content-center p-5"
           onDragOver={(e) => e.preventDefault()}

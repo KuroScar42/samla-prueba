@@ -41,7 +41,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="main-container">
+    <div className="main-container register-main-container">
       {/* Left section with image */}
       <div className="register-background">
         <div className="register-backgroundImage"></div>
@@ -58,9 +58,9 @@ const RegistrationForm = () => {
       </div>
 
       {/* Right section with form */}
-      <div className="d-flex flex-column p-4 justify-content-center w-50 w-md-50">
+      <div className="d-flex flex-column p-4 justify-content-center w-50 w-md-50 main-info-container">
         <div className="side-container">
-          <div className="mb-4">
+          <div className="mb-4 blue-white-logo-container">
             {samlaIcon}
             <h2 className="fs-3 fw-semibold">Registro</h2>
           </div>

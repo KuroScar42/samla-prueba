@@ -66,10 +66,10 @@ const HistoryList = () => {
           centered
           className="modal-info"
         >
-          <ModalHeader toggle={toggleModal}>Capturar Selfie</ModalHeader>
+          <ModalHeader toggle={toggleModal}></ModalHeader>
           <ModalBody className="text-center">
             <div className="row g-4">
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <div className="selfie-container">
                   <img
                     src={userSelected?.selfieImage}
@@ -81,7 +81,7 @@ const HistoryList = () => {
                 </div>
               </div>
 
-              <div className="col-md-6 info-container">
+              <div className="col-md-8 info-container">
                 <p className="user-full-name">
                   {userSelected?.firstName} {userSelected?.lastName}
                 </p>
@@ -146,13 +146,13 @@ const HistoryList = () => {
               </div>
             </div>
 
-            <div className="mt-4">
-              <h6 className="text-secondary mb-3">Documento de identidad</h6>
-              <div className="row g-3">
+            <div className="mt-4 documents">
+              <p className="text-secondary mb-3">Documento de identidad</p>
+              <div className="row g-3 documents-container">
                 {userSelected?.documentImageUrl?.map((image) => {
                   return (
                     <div className="col-md-6">
-                      <div className="bg-light rounded p-4 text-center">
+                      <div className="rounded text-center document-image-container">
                         <img
                           src={image}
                           alt="ID Document Front"

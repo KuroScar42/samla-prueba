@@ -14,6 +14,12 @@ import {
   useUploadImageMutation,
 } from "Services/apiUsers";
 
+const videoConstraints = {
+  width: 1920, // Set to maximum supported resolution
+  height: 1080,
+  facingMode: "user", // Ensures front camera for selfies
+};
+
 const Selfie = () => {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
@@ -76,7 +82,7 @@ const Selfie = () => {
         };
         const userRes = await createUser(userPayload);
         const userId = userRes?.data?.id;
-        debugger;
+
         await Promise.all(
           additionalData.photos?.map(async (file: any, index: number) => {
             return await uploadDocumentImage({
@@ -109,12 +115,15 @@ const Selfie = () => {
     <div className="main-container selfie-container">
       <DecorativeHeader />
       <div className="main-content">
-        {samlaIcon}
-        {cameraIcon}
-        <p className="selfie-time">¡Es hora de la selfie!</p>
-        <p className="selfie-smile">
-          Sonríe y asegúrate de tener buena iluminación.
-        </p>
+        <div className="icon-samla">{samlaIcon}</div>
+        <div className="icon-camera">{cameraIcon}</div>
+        <div className={`description-container ${selfie ? "m-0" : ""}`}>
+          <p className="selfie-time">¡Es hora de la selfie!</p>
+          <p className="selfie-smile">
+            Sonríe y asegúrate de tener buena iluminación.
+          </p>
+        </div>
+
         {selfie && (
           <div className="captured-container mt-3 text-center">
             <p>Imagen Capturada:</p>
@@ -143,9 +152,11 @@ const Selfie = () => {
             </Button>
           </div>
         ) : (
-          <Button color="primary" onClick={toggleModal} className="mt-3">
-            Tomar Foto
-          </Button>
+          <div className="take-photo-container">
+            <Button color="primary" onClick={toggleModal} className="mt-3">
+              Tomar Foto
+            </Button>
+          </div>
         )}
 
         <Modal isOpen={modalOpen} toggle={toggleModal} centered>
@@ -154,9 +165,11 @@ const Selfie = () => {
             <Webcam
               ref={webcamRef}
               screenshotFormat="image/jpeg"
+              screenshotQuality={1.0}
               width="100%"
               className="selfie-camera"
               mirrored
+              videoConstraints={videoConstraints}
             />
           </ModalBody>
           <ModalFooter>

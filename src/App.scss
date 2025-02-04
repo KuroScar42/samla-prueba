@@ -10,6 +10,13 @@
   margin-left: 16px;
 }
 
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid red;
+}
+
 .btn-primary {
   --bs-btn-color: #fff;
   --bs-btn-bg: #ff5c00;
@@ -42,11 +49,4 @@
   --bs-btn-disabled-color: #000;
   --bs-btn-disabled-bg: #f2f4f7;
   --bs-btn-disabled-border-color: #f2f4f7;
-}
-
-hr {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border: 0;
-  border-top: 1px solid red;
 }

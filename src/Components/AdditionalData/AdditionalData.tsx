@@ -39,9 +39,7 @@ const AdditionalData = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const onSubmit: SubmitHandler<AdditionalDataInputs> = (data: any) => {
-    console.log(data);
     if (files.length === maxNumFiles && watch("photos") && data) {
-      debugger;
       dispatch(setAdditionalField(data));
       navigate("/selfie");
     }
@@ -69,7 +67,7 @@ const AdditionalData = () => {
       <div className="content-container">
         <div className="home-data">
           <div className="side-container">
-            <div className="mb-4">
+            <div className="mb-4 title-container">
               {samlaIcon}
               <h2 className="fs-3 fw-semibold">Datos de vivienda</h2>
             </div>

@@ -1,3 +1,5 @@
+@import "./../../variables.scss";
+
 .selfie-container {
   flex-direction: column;
 }
@@ -8,6 +10,12 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+
+  .description-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   h1 {
     margin-bottom: 40px !important;
   }
@@ -36,12 +44,12 @@
   }
 
   .captured-image {
-    width: 400px; /* Adjust as needed */
-    height: 400px; /* Ensure width and height are equal */
-    border-radius: 50%; /* Makes it a perfect circle */
-    object-fit: cover; /* Ensures the image fills the circular area */
-    border: 5px solid white; /* Optional: Adds a white border for styling */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional: Adds a soft shadow */
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
   .image-buttons-container {
     display: flex;
@@ -51,11 +59,71 @@
 
 .modal-body {
   .selfie-camera {
-    width: 400px; /* Adjust as needed */
-    height: 400px; /* Ensure width and height are equal */
-    border-radius: 50%; /* Makes it a perfect circle */
-    object-fit: cover; /* Ensures the image fills the circular area */
-    border: 5px solid white; /* Optional: Adds a white border for styling */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional: Adds a soft shadow */
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .main-content {
+    height: auto !important;
+    .captured-image {
+      width: 350px;
+      height: 350px;
+    }
+    .icon-samla {
+      margin-top: 46px;
+    }
+    .icon-camera {
+      margin-top: 140px;
+    }
+    .description-container {
+      margin-bottom: 130px;
+    }
+    .take-photo-container {
+      width: 100%;
+      padding: 0 30px;
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .modal-body {
+    .selfie-camera {
+      width: 350px;
+      height: 350px;
+    }
+  }
+  .image-buttons-container {
+    flex-direction: column-reverse;
+    width: 100%;
+    padding: 0 25px;
+    padding-bottom: 14px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .modal-body {
+    .selfie-camera {
+      width: 300px;
+      height: 300px;
+    }
+  }
+  .image-buttons-container {
+    flex-direction: column-reverse;
+    width: 100%;
+    padding: 0 25px;
+    padding-bottom: 14px;
+  }
+  .captured-image {
+    width: 300px;
+    height: 300px;
   }
 }

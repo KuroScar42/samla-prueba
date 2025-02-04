@@ -1,3 +1,5 @@
+@import "./../../variables.scss";
+
 .content-container {
   display: flex;
   width: 100%;
@@ -37,5 +39,117 @@
   .drop-zone {
     display: flex;
     justify-content: end;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .main-container {
+    .decorative-background {
+      min-height: 30px;
+    }
+    .content-container {
+      padding-top: 42px;
+      .home-data {
+        width: 100%;
+        .side-container {
+          .title-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            svg {
+              margin-bottom: 60px;
+            }
+          }
+        }
+      }
+      .drop-zone-wrapper {
+        margin: 0;
+        width: 100% !important;
+        align-items: center;
+        .drop-zone {
+          width: 100%;
+          > div {
+            width: 100%;
+            margin: 0 5rem;
+            > p {
+              width: 100%;
+            }
+            .drop-down-zone {
+              width: 100%;
+              max-width: 100%;
+            }
+          }
+        }
+      }
+      flex-direction: column;
+    }
+    .button-container {
+      flex-direction: column-reverse;
+      align-items: center;
+      margin: 0;
+      padding: 3rem 5rem;
+      .btn {
+        width: 100%;
+        margin-top: 0 !important;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .main-container {
+    .decorative-background {
+      min-height: 30px;
+    }
+    .content-container {
+      padding-top: 42px;
+      height: auto !important;
+      .home-data {
+        width: 100%;
+        .side-container {
+          margin: 0 16px;
+          .title-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            svg {
+              margin-bottom: 60px;
+            }
+          }
+        }
+      }
+      .drop-zone-wrapper {
+        margin: 0;
+        width: 100% !important;
+        align-items: center;
+        .drop-zone {
+          width: 100%;
+          > div {
+            width: 100%;
+            margin: 0 32px;
+            > p {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+            }
+            .drop-down-zone {
+              width: 100%;
+              max-width: 100%;
+            }
+          }
+        }
+      }
+      flex-direction: column;
+    }
+    .button-container {
+      flex-direction: column-reverse;
+      align-items: center;
+      margin: 0;
+      padding: 3rem 32px;
+      .btn {
+        width: 100%;
+        margin-top: 0 !important;
+      }
+    }
   }
 }
