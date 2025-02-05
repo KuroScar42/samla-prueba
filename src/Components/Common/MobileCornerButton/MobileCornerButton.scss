@@ -1,0 +1,12 @@
+@import "./../../../variables.scss";
+
+.mobile-corner-button {
+  max-width: fit-content;
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  display: none;
+  @include media-breakpoint-down(md) {
+    display: block;
+  }
+}

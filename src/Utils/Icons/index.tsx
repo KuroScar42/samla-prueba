@@ -119,3 +119,18 @@ export const nextIcon = (
     />
   </svg>
 );
+
+export const backArrow = (
+  <svg
+    width="22"
+    height="16"
+    viewBox="0 0 22 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8.26938 15.5381L0.730713 7.99976L8.26938 0.461426L9.67438 1.90743L4.58205 6.99976H21.2694V8.99976H4.58205L9.67438 14.0921L8.26938 15.5381Z"
+      fill="#1C1B1F"
+    />
+  </svg>
+);

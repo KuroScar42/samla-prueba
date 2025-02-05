@@ -1,8 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-
 import Webcam from "react-webcam";
 import DecorativeHeader from "Components/Common/DecorativeHeader";
-import "./Selfie.scss";
 import { cameraIcon, samlaIcon } from "Utils/Icons";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +13,8 @@ import {
 } from "./../../Services/apiUsers";
 import Spinner from "./../../Components/Common/Spinner";
 import { resetForm } from "./../../Redux/slice/formData";
+import "./Selfie.scss";
+import MobileCornerButton from "Components/Common/MobileCornerButton";
 
 const videoConstraints = {
   width: 1920, // Set to maximum supported resolution
@@ -59,8 +59,7 @@ const Selfie = () => {
       const blob = new Blob([ab], { type: mimeString });
       const file = new File([blob], "selfie.jpg", { type: mimeString });
 
-      setSelfie(file); // Store file instead of base64
-      // setSelfie(imageSrc);
+      setSelfie(file);
       setModalOpen(false);
     }
   }, []);
@@ -134,6 +133,10 @@ const Selfie = () => {
     }
   };
 
+  const goToAdditionalData = () => {
+    navigate("/additionalData");
+  };
+
   useEffect(() => {
     if (!registerInfo || !additionalData) {
       navigate("/register");
@@ -149,6 +152,7 @@ const Selfie = () => {
         </div>
       )}
       <div className="main-content">
+        <MobileCornerButton onClick={goToAdditionalData} />
         <div className="icon-samla">{samlaIcon}</div>
         <div className="icon-camera">{cameraIcon}</div>
         <div className={`description-container ${selfie ? "m-0" : ""}`}>

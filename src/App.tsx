@@ -6,11 +6,11 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./App.scss";
-import NotFound from "Components/NotFound";
-import Register from "Components/Register";
-import AdditionalData from "Components/AdditionalData";
-import Selfie from "Components/Selfie";
-import HistoryList from "Components/HistoryList";
+import NotFound from "./Components/NotFound";
+import Register from "./Components/Register";
+import AdditionalData from "./Components/AdditionalData";
+import Selfie from "./Components/Selfie";
+import HistoryList from "./Components/HistoryList";
 
 function App() {
   return (

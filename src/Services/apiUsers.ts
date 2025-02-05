@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-// const baseUrl = "https://api-rfbgmdbvlq-uc.a.run.app/";
 const baseUrl = process.env.REACT_APP_API_URL;
 
 export interface IUser {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { nextIcon, previousIcon } from "../../../Utils/Icons";
 import "./Pagination.scss";
-import { nextIcon, previousIcon } from "Utils/Icons";
 
 interface IPagination {
   items: Array<any>;
@@ -26,17 +26,20 @@ const Pagination = (props: IPagination) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
     setItemOffset(newOffset);
   };
+
   return (
-    <ReactPaginate
-      className="pagination"
-      breakLabel="..."
-      nextLabel={nextIcon}
-      onPageChange={handlePageClick}
-      pageRangeDisplayed={5}
-      pageCount={pageCount}
-      previousLabel={previousIcon}
-      renderOnZeroPageCount={null}
-    />
+    items?.length > itemsPerPage && (
+      <ReactPaginate
+        className="pagination"
+        breakLabel="..."
+        nextLabel={nextIcon}
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel={previousIcon}
+        renderOnZeroPageCount={null}
+      />
+    )
   );
 };
 

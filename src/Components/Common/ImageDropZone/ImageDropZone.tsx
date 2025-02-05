@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { imagesIcon } from "../../../Utils/Icons";
 import "./ImageDropZone.scss";
-import { imagesIcon } from "Utils/Icons";
 
 interface IImageDropZone {
   setFiles: (files: Array<File>) => void;

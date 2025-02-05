@@ -2,10 +2,9 @@ import { useState } from "react";
 import DecorativeHeader from "../../Components/Common/DecorativeHeader";
 import { IUser, useGetAllUsersQuery } from "../../Services/apiUsers";
 import { samlaIconWhite } from "../../Utils/Icons";
-import "./HistoryList.scss";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
-import ReactPaginate from "react-paginate";
-import Pagination from "Components/Common/Pagination";
+import Pagination from "../../Components/Common/Pagination";
+import "./HistoryList.scss";
 
 const HistoryList = () => {
   const { data: users } = useGetAllUsersQuery();
@@ -96,57 +95,61 @@ const HistoryList = () => {
                 <div className="row">
                   <div className="col-md-6 info-column">
                     <div className="mb-4 info-row">
-                      <label className="text-secondary mb-1">
-                        Correo electrónico
-                      </label>
-                      <div>{userSelected?.email}</div>
+                      <label className="mb-1">Correo electrónico</label>
+                      <div className="text-secondary">
+                        {userSelected?.email}
+                      </div>
                     </div>
 
                     <div className="mb-4 info-row">
-                      <label className="text-secondary mb-1">
-                        Número de teléfono
-                      </label>
-                      <div>{userSelected?.telephone}</div>
+                      <label className="mb-1">Número de teléfono</label>
+                      <div className="text-secondary">
+                        {userSelected?.telephone}
+                      </div>
                     </div>
 
                     <div className="mb-4 info-row">
-                      <label className="text-secondary mb-1">
-                        Tipo de documento
-                      </label>
-                      <div>{userSelected?.idType}</div>
+                      <label className="mb-1">Tipo de documento</label>
+                      <div className="text-secondary">
+                        {userSelected?.idType}
+                      </div>
                     </div>
 
                     <div className="mb-4 info-row">
-                      <label className="text-secondary mb-1">
-                        Número de documento
-                      </label>
-                      <div>{userSelected?.idNumber}</div>
+                      <label className="mb-1">Número de documento</label>
+                      <div className="text-secondary">
+                        {userSelected?.idNumber}
+                      </div>
                     </div>
                   </div>
 
                   <div className="col-md-6 info-column">
                     <div className="mb-4 info-row">
-                      <label className="text-secondary mb-1">
-                        Departamento
-                      </label>
-                      <div>{userSelected?.department}</div>
+                      <label className="mb-1">Departamento</label>
+                      <div className="text-secondary">
+                        {userSelected?.department}
+                      </div>
                     </div>
 
                     <div className="mb-4 info-row">
-                      <label className="text-secondary mb-1">Municipio</label>
-                      <div>{userSelected?.municipality}</div>
+                      <label className="mb-1">Municipio</label>
+                      <div className="text-secondary">
+                        {userSelected?.municipality}
+                      </div>
                     </div>
 
                     <div className="mb-4 info-row">
-                      <label className="text-secondary mb-1">Dirección</label>
-                      <div>{userSelected?.direction}</div>
+                      <label className="mb-1">Dirección</label>
+                      <div className="text-secondary">
+                        {userSelected?.direction}
+                      </div>
                     </div>
 
                     <div className="mb-4 info-row">
-                      <label className="text-secondary mb-1">
-                        Ingresos mensuales
-                      </label>
-                      <div>${userSelected?.monthlyEarns}</div>
+                      <label className="mb-1">Ingresos mensuales</label>
+                      <div className="text-secondary">
+                        ${userSelected?.monthlyEarns}
+                      </div>
                     </div>
                   </div>
                 </div>

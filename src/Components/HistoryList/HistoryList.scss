@@ -87,6 +87,12 @@
 
 .history-list-container {
   @include media-breakpoint-down(md) {
+    .decorative-background {
+      min-height: 85px;
+      .logo-container {
+        padding-left: 30px;
+      }
+    }
     .table {
       min-width: 600px;
     }

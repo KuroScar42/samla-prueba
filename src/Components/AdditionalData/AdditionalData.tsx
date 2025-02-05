@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import "./AdditionalData.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setAdditionalField } from "./../../Redux/slice/formData";
+import MobileCornerButton from "Components/Common/MobileCornerButton";
 
 const maxNumFiles = 2;
 
@@ -75,6 +76,8 @@ const AdditionalData = () => {
     }
   };
 
+  const goToRegister = () => navigate("/register");
+
   useEffect(() => {
     if (!registerInfo) {
       navigate("/register");
@@ -85,6 +88,7 @@ const AdditionalData = () => {
     <div className="main-container" style={{ flexDirection: "column" }}>
       <DecorativeHeader />
       <div className="content-container">
+        <MobileCornerButton onClick={goToRegister} />
         <div className="home-data">
           <div className="side-container">
             <div className="mb-4 title-container">
@@ -160,10 +164,7 @@ const AdditionalData = () => {
         </div>
       </div>
       <div className="button-container">
-        <button
-          onClick={() => navigate("/register")}
-          className="btn btn-secondary mt-3"
-        >
+        <button onClick={goToRegister} className="btn btn-secondary mt-3">
           Cancelar
         </button>
         <button onClick={triggerSubmit} className="btn btn-primary mt-3">
