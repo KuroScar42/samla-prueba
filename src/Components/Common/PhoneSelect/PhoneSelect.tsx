@@ -7,12 +7,14 @@ interface PhoneSelectProps {
   selectedCountryCode?: string;
   phoneNumber?: string;
   onChange: (data: { countryCode: string; phoneNumber: string }) => void;
+  hasError?: boolean;
 }
 
 const PhoneSelect: React.FC<PhoneSelectProps> = ({
   selectedCountryCode,
   phoneNumber: initialPhoneNumber,
   onChange,
+  hasError,
 }) => {
   const [phoneNumber, setPhoneNumber] = useState<string>(
     initialPhoneNumber || ""
@@ -34,6 +36,8 @@ const PhoneSelect: React.FC<PhoneSelectProps> = ({
 
   return (
     <PhoneInput
+      inputClass={`${hasError ? "border-danger" : ""}`}
+      buttonClass={`${hasError ? "border-danger" : ""}`}
       searchClass="countrySearch"
       enableSearch
       country={countryCode}

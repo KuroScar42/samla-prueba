@@ -15,8 +15,6 @@ const TextInput = (props: TextInputProps) => {
 
   const hasError: boolean = errors?.[name];
 
-  console.log("errors", errors);
-
   return (
     <div className="mb-3">
       <label

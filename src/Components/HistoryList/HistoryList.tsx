@@ -49,7 +49,6 @@ const HistoryList = () => {
                       <a
                         className="text-primary cursor-pointer"
                         onClick={() => {
-                          console.log(user);
                           setUserSelected(user);
                           toggleModal();
                         }}

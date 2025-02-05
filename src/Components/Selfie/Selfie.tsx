@@ -5,14 +5,16 @@ import DecorativeHeader from "Components/Common/DecorativeHeader";
 import "./Selfie.scss";
 import { cameraIcon, samlaIcon } from "Utils/Icons";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   useCreateUserMutation,
   useDetectFaceMutation,
   useSelfieUploadImageMutation,
   useUploadImageMutation,
-} from "Services/apiUsers";
+} from "./../../Services/apiUsers";
+import Spinner from "./../../Components/Common/Spinner";
+import { resetForm } from "./../../Redux/slice/formData";
 
 const videoConstraints = {
   width: 1920, // Set to maximum supported resolution
@@ -22,7 +24,10 @@ const videoConstraints = {
 
 const Selfie = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isInvalidFace, setIsInvalidFace] = useState(false);
   const [selfie, setSelfie] = useState<File | null>(null);
   const webcamRef = useRef<any>(null);
 
@@ -62,9 +67,14 @@ const Selfie = () => {
 
   const handleSubmitData = async () => {
     if (selfie) {
+      setIsLoading(true);
       try {
         const res = await validateFaceOnPhoto(selfie);
-        if (!res.data.validFace) return;
+        if (!res.data.validFace) {
+          setIsInvalidFace(true);
+          return;
+        }
+        setIsInvalidFace(false);
 
         // register user
         const userPayload = {
@@ -83,24 +93,43 @@ const Selfie = () => {
         const userRes = await createUser(userPayload);
         const userId = userRes?.data?.id;
 
-        await Promise.all(
-          additionalData.photos?.map(async (file: any, index: number) => {
-            return await uploadDocumentImage({
-              file: file,
-              id: userId,
-              type: `document-${index}`,
-            });
-          })
-        );
-        uploadSelfieImage({
+        // testing a possible issue when uploading several images at the same time
+        // ->'Memory limit of 256 MiB exceeded with 259 MiB used. Consider increasing the memory limit, see https://cloud.google.com/functions/docs/configuring/memory
+
+        const imageDocument1 = await uploadDocumentImage({
+          file: additionalData.photos?.[0],
+          id: userId,
+          type: `document-${0}`,
+        });
+        const imageDocument2 = await uploadDocumentImage({
+          file: additionalData.photos?.[1],
+          id: userId,
+          type: `document-${1}`,
+        });
+
+        // await Promise.all(
+        //   additionalData.photos?.map(async (file: any, index: number) => {
+        //     return await uploadDocumentImage({
+        //       file: file,
+        //       id: userId,
+        //       type: `document-${index}`,
+        //     });
+        //   })
+        // );
+
+        await uploadSelfieImage({
           file: selfie,
           id: userId,
         });
 
+        dispatch(resetForm());
         setSelfie(null);
         navigate("/history");
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -114,6 +143,11 @@ const Selfie = () => {
   return (
     <div className="main-container selfie-container">
       <DecorativeHeader />
+      {isLoading && (
+        <div className="loading-info">
+          <Spinner label={"Guardando información del usuario"}></Spinner>
+        </div>
+      )}
       <div className="main-content">
         <div className="icon-samla">{samlaIcon}</div>
         <div className="icon-camera">{cameraIcon}</div>
@@ -126,7 +160,15 @@ const Selfie = () => {
 
         {selfie && (
           <div className="captured-container mt-3 text-center">
+            {isInvalidFace && (
+              <p className="danger-text">
+                La foto tomada no parece tener un rostro. Por favor revisa que
+                las condiciones de luz del ambiente sean optimas y recuerda
+                mirar a la camara.
+              </p>
+            )}
             <p>Imagen Capturada:</p>
+
             <img
               src={URL.createObjectURL(selfie)}
               alt="Selfie"

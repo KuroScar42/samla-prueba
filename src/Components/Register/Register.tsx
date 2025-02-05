@@ -1,41 +1,72 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
-import PhoneSelect from "Components/Common/PhoneSelect";
-import TextInput from "Components/Common/TextInput";
+import PhoneSelect from "./../../Components/Common/PhoneSelect";
+import TextInput from "./../../Components/Common/TextInput";
 import "./Register.scss";
-import SelectInput from "Components/Common/SelectInput";
-import { RegisterInputs } from "Utils/Types";
-import { useYupValidationResolver } from "Utils";
-import { samlaIcon } from "Utils/Icons";
-import { useDispatch } from "react-redux";
+import SelectInput from "./../../Components/Common/SelectInput";
+import { RegisterInputs } from "./../../Utils/Types";
+import { useYupValidationResolver } from "./../../Utils";
+import { samlaIcon } from "./../../Utils/Icons";
+import { useDispatch, useSelector } from "react-redux";
 import { setRegisterInfo } from "../../Redux/slice/formData";
 import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
-  firstName: yup.string().required("Nombres es requerido"),
-  lastName: yup.string().required("Required"),
-  email: yup.string().required("Required"),
-  phoneCountryCode: yup.string().required("Required"),
-  telephone: yup.string().required("Required"),
-  idType: yup.string().required("Required"),
-  idNumber: yup.string().required("Required"),
+  firstName: yup.string().required("Campo requerido"),
+  lastName: yup.string().required("Campo requerido"),
+  email: yup.string().required("Campo requerido"),
+  phoneCountryCode: yup.string().required("Campo requerido"),
+  telephone: yup
+    .string()
+    .test(
+      "min-length",
+      "El número de teléfono debe tener al menos 7 digitos",
+      function (value) {
+        const { phoneCountryCode } = this.parent;
+        if (!value || !phoneCountryCode) return false;
+
+        return value.length - phoneCountryCode.length >= 7;
+      }
+    )
+    .required("Required"),
+  idType: yup.string().required("Campo requerido"),
+  idNumber: yup.string().required("Campo requerido"),
 });
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
   const resolver = useYupValidationResolver(validationSchema);
+  const registerInfo = useSelector((state: any) => state.form.registerInfo);
   const {
     register,
     setValue,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<RegisterInputs>({ resolver });
+  } = useForm<RegisterInputs>({
+    resolver,
+    defaultValues: {
+      firstName: registerInfo?.firstName || "",
+      lastName: registerInfo?.lastName,
+      email: registerInfo?.email,
+      phoneCountryCode: registerInfo?.phoneCountryCode,
+      telephone: `${registerInfo?.phoneCountryCode}${registerInfo?.telephone}`,
+      idType: registerInfo?.idType,
+      idNumber: registerInfo?.idNumber,
+    },
+  });
 
   const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<RegisterInputs> = (data: any) => {
-    dispatch(setRegisterInfo(data));
+    const dialCode = watch("phoneCountryCode") || "";
+    const telephone = watch("telephone");
+
+    // Remove the dial code from the phone number
+    const localNumber = telephone.startsWith(dialCode)
+      ? telephone.slice(dialCode.length)
+      : telephone;
+    dispatch(setRegisterInfo({ ...data, telephone: localNumber }));
     navigate("/additionalData");
   };
 
@@ -89,7 +120,12 @@ const RegistrationForm = () => {
             />
 
             <div className="mb-3">
-              <label htmlFor="telefono" className="form-label small">
+              <label
+                htmlFor="telefono"
+                className={`form-label small ${
+                  errors?.["telephone"] ? "text-danger" : ""
+                }`}
+              >
                 Número de teléfono
               </label>
               <PhoneSelect
@@ -99,10 +135,14 @@ const RegistrationForm = () => {
                   countryCode: string;
                   phoneNumber: string;
                 }) => {
-                  setValue("telephone", data.phoneNumber);
                   setValue("phoneCountryCode", data.countryCode);
+                  setValue("telephone", data.phoneNumber);
                 }}
+                hasError={!!errors?.["telephone"]}
               />
+              {errors?.["telephone"] && (
+                <p className="errorMessage">{errors?.["telephone"].message}</p>
+              )}
             </div>
 
             <SelectInput

@@ -13,32 +13,52 @@ import "./AdditionalData.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setAdditionalField } from "./../../Redux/slice/formData";
 
-const validationSchema = yup.object({
-  department: yup.string().required("Nombres es requerido"),
-  municipality: yup.string().required("Required"),
-  direction: yup.string().required("Required"),
-  monthlyEarns: yup.string().required("Required"),
-  photos: yup.mixed().required("required"),
-});
-
 const maxNumFiles = 2;
+
+const validationSchema = yup.object({
+  department: yup.string().required("Campo requerido"),
+  municipality: yup.string().required("Campo requerido"),
+  direction: yup.string().required("Campo requerido"),
+  monthlyEarns: yup.string().required("Campo requerido"),
+  photos: yup
+    .mixed()
+    .required(`Se necesitan al menos ${maxNumFiles} imagenes de documentos`),
+});
 
 const AdditionalData = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const resolver = useYupValidationResolver(validationSchema);
+  const additionalData = useSelector((state: any) => state.form.additionalData);
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+    setError,
     formState: { errors },
-  } = useForm<AdditionalDataInputs>({ resolver });
+  } = useForm<AdditionalDataInputs>({
+    resolver,
+    defaultValues: {
+      department: additionalData?.department,
+      municipality: additionalData?.municipality,
+      direction: additionalData?.direction,
+      monthlyEarns: additionalData?.monthlyEarns,
+      photos: additionalData?.photos,
+    },
+  });
 
-  const [files, setFiles] = useState<Array<File>>([]);
+  const [files, setFiles] = useState<Array<File>>(additionalData?.photos ?? []);
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const onSubmit: SubmitHandler<AdditionalDataInputs> = (data: any) => {
+    if (files.length < maxNumFiles) {
+      setError("photos", {
+        type: "manual",
+        message: `Se necesitan al menos ${maxNumFiles} imagenes de documentos`,
+      });
+      return;
+    }
     if (files.length === maxNumFiles && watch("photos") && data) {
       dispatch(setAdditionalField(data));
       navigate("/selfie");
@@ -134,10 +154,16 @@ const AdditionalData = () => {
             label="Fotografía de documento de identidad"
             maxFiles={maxNumFiles}
           />
+          {errors?.["photos"] && (
+            <p className="danger-text">{errors?.["photos"].message}</p>
+          )}
         </div>
       </div>
       <div className="button-container">
-        <button onClick={() => {}} className="btn btn-secondary mt-3">
+        <button
+          onClick={() => navigate("/register")}
+          className="btn btn-secondary mt-3"
+        >
           Cancelar
         </button>
         <button onClick={triggerSubmit} className="btn btn-primary mt-3">

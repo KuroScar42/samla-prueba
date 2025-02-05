@@ -2,21 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   registerInfo: null,
-  // registerInfo: {
-  //   firstName: "",
-  //   lastName: "",
-  //   email: "",
-  //   phoneCountryCode: "",
-  //   telephone: "",
-  //   idType: "",
-  //   idNumber: "",
-  // },
-  // additionalData: {
-  //   department: "",
-  //   municipality: "",
-  //   direction: "",
-  //   monthlyEarns: "",
-  // },
   additionalData: null,
 };
 
